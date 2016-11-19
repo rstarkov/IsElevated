@@ -23,7 +23,7 @@ namespace IsElevated
                 lblAdmin.ForeColor = Color.Green;
             }
 
-            if (ProcessIntegrity.GetProcessElevated())
+            if (ProcessSecurity.GetProcessElevated())
             {
                 lblElevated.Text = $"Elevated: YES";
                 lblElevated.ForeColor = Color.Maroon;
@@ -34,21 +34,21 @@ namespace IsElevated
                 lblElevated.ForeColor = Color.Green;
             }
 
-            switch (ProcessIntegrity.GetCurrentProcessIntegrity())
+            switch (ProcessSecurity.GetCurrentProcessIntegrity())
             {
-                case ProcessIntegrity.Level.System:
+                case ProcessSecurity.Integrity.System:
                     lblIntegrity.Text = "Integrity: SYSTEM";
                     lblIntegrity.ForeColor = Color.Crimson;
                     break;
-                case ProcessIntegrity.Level.High:
+                case ProcessSecurity.Integrity.High:
                     lblIntegrity.Text = "Integrity: HIGH";
                     lblIntegrity.ForeColor = Color.Maroon;
                     break;
-                case ProcessIntegrity.Level.Medium:
+                case ProcessSecurity.Integrity.Medium:
                     lblIntegrity.Text = "Integrity: MEDIUM";
                     lblIntegrity.ForeColor = Color.Green;
                     break;
-                case ProcessIntegrity.Level.Low:
+                case ProcessSecurity.Integrity.Low:
                     lblIntegrity.Text = "Integrity: LOW";
                     lblIntegrity.ForeColor = Color.LimeGreen;
                     break;

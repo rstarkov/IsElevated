@@ -14,8 +14,8 @@ namespace IsElevated
             var identity = WindowsIdentity.GetCurrent();
             var principal = new WindowsPrincipal(identity);
             Console.WriteLine($"Administrator: {(principal.IsInRole(WindowsBuiltInRole.Administrator) ? "YES" : "NO")}");
-            Console.WriteLine($"Elevated: {(ProcessIntegrity.GetProcessElevated() ? "YES" : "NO")}");
-            Console.WriteLine($"Integrity: {ProcessIntegrity.GetCurrentProcessIntegrity()}");
+            Console.WriteLine($"Elevated: {(ProcessSecurity.GetProcessElevated() ? "YES" : "NO")}");
+            Console.WriteLine($"Integrity: {ProcessSecurity.GetCurrentProcessIntegrity()}");
         }
     }
 }

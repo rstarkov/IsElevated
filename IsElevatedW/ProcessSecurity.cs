@@ -5,9 +5,9 @@ using System.Runtime.InteropServices;
 
 namespace IsElevated
 {
-    static class ProcessIntegrity
+    static class ProcessSecurity
     {
-        public static Level GetCurrentProcessIntegrity()
+        public static Integrity GetCurrentProcessIntegrity()
         {
             // https://msdn.microsoft.com/en-us/library/bb625966.aspx
             var hProcess = Process.GetCurrentProcess().Handle;
@@ -28,13 +28,13 @@ namespace IsElevated
                 var pAuth = GetSidSubAuthority(TIL.Label.Sid, (uint) (count - 1));
                 var auth = Marshal.ReadInt32(pAuth);
                 if (auth >= SECURITY_MANDATORY_SYSTEM_RID)
-                    return Level.System;
+                    return Integrity.System;
                 else if (auth >= SECURITY_MANDATORY_HIGH_RID)
-                    return Level.High;
+                    return Integrity.High;
                 else if (auth >= SECURITY_MANDATORY_MEDIUM_RID)
-                    return Level.Medium;
+                    return Integrity.Medium;
                 else if (auth >= SECURITY_MANDATORY_LOW_RID)
-                    return Level.Low;
+                    return Integrity.Low;
                 else
                     throw new InvalidOperationException($"Unexpected security level: {auth}");
             }
@@ -47,7 +47,7 @@ namespace IsElevated
             }
         }
 
-        public enum Level
+        public enum Integrity
         {
             System, High, Medium, Low
         }

@@ -40,8 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\IsElevatedW\ProcessIntegrity.cs">
-      <Link>ProcessIntegrity.cs</Link>
+    <Compile Include="..\IsElevatedW\ProcessSecurity.cs">
+      <Link>ProcessSecurity.cs</Link>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

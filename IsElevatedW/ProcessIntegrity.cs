@@ -52,6 +52,32 @@ namespace IsElevated
             System, High, Medium, Low
         }
 
+        public static bool GetProcessElevated()
+        {
+            // http://stackoverflow.com/a/4497572/33080
+            var hProcess = Process.GetCurrentProcess().Handle;
+            var hToken = IntPtr.Zero;
+            var pElevationType = Marshal.AllocHGlobal(4);
+            try
+            {
+                if (!OpenProcessToken(hProcess, 0x0008 /* TOKEN_QUERY */, out hToken))
+                    throw new Win32Exception();
+
+                uint returnedSize = 0;
+                if (!GetTokenInformation(hToken, 18 /* TokenElevationType */, pElevationType, 4, out returnedSize))
+                    throw new Win32Exception();
+                var elevation = Marshal.ReadInt32(pElevationType);
+                return elevation == 2 /* TokenElevationTypeFull */;
+            }
+            finally
+            {
+                if (hToken != IntPtr.Zero)
+                    CloseHandle(hToken);
+                if (pElevationType != IntPtr.Zero)
+                    Marshal.FreeHGlobal(pElevationType);
+            }
+        }
+
         const int SECURITY_MANDATORY_LOW_RID = 0x00001000;
         const int SECURITY_MANDATORY_MEDIUM_RID = 0x00002000;
         const int SECURITY_MANDATORY_HIGH_RID = 0x00003000;

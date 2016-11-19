@@ -23,6 +23,17 @@ namespace IsElevated
                 lblAdmin.ForeColor = Color.Green;
             }
 
+            if (ProcessIntegrity.GetProcessElevated())
+            {
+                lblElevated.Text = $"Elevated: YES";
+                lblElevated.ForeColor = Color.Maroon;
+            }
+            else
+            {
+                lblElevated.Text = $"Elevated: NO";
+                lblElevated.ForeColor = Color.Green;
+            }
+
             switch (ProcessIntegrity.GetCurrentProcessIntegrity())
             {
                 case ProcessIntegrity.Level.System:
